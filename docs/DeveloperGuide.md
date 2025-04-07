@@ -1020,6 +1020,136 @@ testers are expected to do more *exploratory* testing.
 
 
 
+### Adding a person
+**Prerequisites:**
+* Listify must be running.
+
+**Test Cases:**
+1. Valid Inputs
+
+    1. Execute: `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Vendor`
+        
+       Expected: Contact is added, success message shown.
+   
+    2. Execute: `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 r/Software Engineer t/criminal`
+   
+       Expected: Contact with multiple tags is added, success message shown.
+
+2. Invalid Inputs 
+
+    1. Execute: `add n/John Doe p/abcd e/email@com a/Somewhere r/Developer`
+   
+       Expected: Error message for invalid phone number. 
+   
+    2. Execute: `add` (with missing fields)
+   
+       Expected: Error message shown.
+
+
+
+### Editing a person
+**Prerequisites:**
+* At least one person must be in the list.
+
+**Test Cases:**
+1. Basic Field Edits
+
+    1. Execute: `edit 1 p/91234567 e/johndoe@example.com`
+
+       Expected: First person’s phone and email are updated, success message shown.
+   
+    2. Execute: `edit 2 n/Betsy Crower t/`
+   
+       Expected: Second person's name is changed, tags are cleared.
+
+2. Invalid Edits 
+
+    1. Execute: `edit 0 p/1234567`
+   
+       Expected: Error message shown.
+
+    2. Execute: `edit 1`
+       
+       Expected: Error message stating at least one field to edit must be provided.
+   
+    3. Execute: `edit x n/Test`
+   
+       Expected: Error message shown.
+
+
+
+### Locating persons
+**Prerequisites:**
+* Add multiple people with varying names, phone numbers, roles, and tags.
+
+**Test Cases:**
+1. Name Search 
+
+    1. Execute: `find n/John`
+   
+       Expected: All contacts with names containing "John" are listed.
+   
+    2. Execute: `find n/alex n/david`
+
+       Expected: All contacts matching either keyword are shown.
+
+2. Phone Search
+
+    1. Execute: `find p/98765432`
+   
+       Expected: Contact with matching phone number is listed. 
+   
+    2. Execute: `find p/98765432 98761234`
+   
+       Expected: Error message shown stating phone number provided is invalid.
+
+    3. Execute: `find p/98765432 p/98761234`
+   
+       Expected: Contacts with matching numbers shown.
+
+3. Role/Tag Search 
+
+    1. Execute: `find r/Software`
+   
+       Expected: Contacts with matching roles (e.g., Software Engineer) listed. 
+   
+    2. Execute: `find t/friend`
+   
+       Expected: Contacts with the `friend` tag listed.
+
+4. Invalid Search 
+
+    1. Execute: `find n/john p/98765432`
+   
+       Expected: Error message shown.
+
+
+
+### Deleting multiple people with the same tag
+**Prerequisites:**
+* Ensure multiple contacts have a common tag.
+
+**Test Cases:**
+1. Valid Deletion by Tag
+
+    1. Execute: `list`, then `deletewithtag colleagues`
+   
+       Expected: All contacts with tag `colleagues` are deleted.
+
+2. Tag Not Found
+
+    1. Execute: `deletewithtag nonexistenttag`
+   
+       Expected: No contacts deleted and "0 persons deleted!" message shown.
+
+3. Case Insensitivity
+
+    1. Execute: `deletewithtag FRIEND`
+   
+       Expected: Contacts with tag `friend` are deleted regardless of case.
+
+
+
 ## **Appendix: Planned Enhancements**
 
 * Team size: 5
@@ -1036,3 +1166,6 @@ testers are expected to do more *exploratory* testing.
 
 6. More sorting choices for `sort` command: Currently, the `sort` command only allows sorting by `name` and `phone`. We plan to allow users to also sort by `tag`, `role` and `last contacted`.
 
+7. Allow multiple prefixes for `find` command: Currently, the `find` command only allows searching for contacts by one prefix. We plan to allow users to also search for contacts by multiple prefixes. Example: `find n/John e/john@gmail.com p/78989456`.
+
+8. Flexibility with exports: Allow users to export only selected contacts that are listed in the app. Example: `find t/friends` followed by `export` will only export contacts with the `friends` tag.
