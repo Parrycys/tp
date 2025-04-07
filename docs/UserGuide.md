@@ -97,10 +97,9 @@ Adds a person to Listify.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE [t/TAG]…​`
 <box type="tip" seamless>
-* Phone numbers must have a length of 3-15 numerical digits only
 
 
-**Tip:** A person can have any number of tags (including 0)
+**Tip:** A person can have any number of tags (including 0) and phone numbers must have a length of 3-15 numerical digits only.
 </box>
 
 Examples:
@@ -141,13 +140,13 @@ Format: `find PREFIX/KEYWORD [PREFIX/MORE_KEYWORDS]`
   e.g. `find n/hans p/98763547` will result in an error
 * Keywords are seperated by prefix
   e.g. `find n/Hans Gruber n/Bo Yang` has keywords `Hans Gruber`, `Bo Yang`
-* #### Name, role, and tag search
+#### Name, role, and tag search
 * The search is case-insensitive. e.g `find n/hans` will show `Hans Gruber`
 * Partial keywords **which includes whitespace** will be matched
 e.g. `find n/Hans G` will match `Hans Gruber` but `find n/Han   G` will not match
 * Persons partially matching at least keyword one will be returned (i.e. `OR` search)
   e.g. `find n/Hans n/Bo` will return `Hans Gruber`, `Bo Yang`
-* #### Phone search
+#### Phone search
 * find by phone will not allow whitespaces
 e.g. `find p/98763547 98761234` results in an error - instead use `find p/98763547 p/98761234`
 
@@ -182,11 +181,11 @@ Format: `deletewithtag TAGNAME`
 * The tagname **must be an exact match (case-insensitive) to the tag name of the desired persons(s) to delete**.
 
 Examples:
-* `list` followed by `deletewithtag colleagues` deletes everyone with the tag `colleagues` in listify.
+* `list` followed by `deletewithtag colleagues` deletes everyone with the tag `colleagues` in Listify.
 
 ### Sorting contacts : `sort`
 
-Sort Listify in ascending or descending order by name or by phone if there are duplicate names.
+Sorts Listify in ascending or descending order by name or by phone if there are duplicate names.
 
 Format: `sort ORDER`
 
@@ -216,16 +215,16 @@ Examples:
 
 ### Exporting all contacts : `export`
 
-Exports all contacts in the app (viewable with the `list` command) into a `vcf` (Vcard) or a proprietary
-`csv` (Comma Separated Values) file. `vcf` files can be imported into common contact applications.
+Exports all contacts in the app (viewable with the `list` command) into a `vcf` (vCard or Virtual Contact File) or a proprietary
+`csv` (Comma-Separated Values) file. `vcf` files can be imported into common contact applications.
 
 Format: `export FILENAME`
 
-* Filenames must end with `.vcf` or `.csv`, the programme will automatically export them to the respective format
-* Exported files are created in the programme's `exports` folder
-* If a file with the provided fiename already exists in the `exports` folder, you have to delete or rename it first
-* Tags are NOT exported in the `vcf` format
-* Last-contacted times are NOT exported by design
+* Filenames must end with `.vcf` or `.csv`, the programme will automatically export them to the respective format.
+* Exported files are created in the programme's `exports` folder.
+* If a file with the provided fiename already exists in the `exports` folder, you have to delete or rename it first.
+* Tags are NOT exported in the `vcf` format.
+* Last-contacted times are NOT exported by design.
 
 Examples:
 * `export contacts.vcf` exports all contacts to a vcf file at `exports/contacts.vcf`
@@ -316,7 +315,7 @@ Furthermore, certain edits can cause Listify to behave in unexpected ways (e.g.,
 **Q**: How do I transfer my data to another Computer?<br>
 
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Listify home folder. 
-Alternatively, use the export command to export a csv file of all contacts, and use the import command on the destination computer to import contacts from that file (last-contacted times not transferred). 
+Alternatively, use the export command to export a csv file of all contacts, and use the import command on the destination computer to import contacts from that file (Note: `last contacted` field is not transferred). 
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -324,7 +323,7 @@ Alternatively, use the export command to export a csv file of all contacts, and 
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
-3. **When running export command on Windows OS**, if the entered filename already exists in the `exports` directory in a dIfFeReNt CaSe, the contacts will be exported to the existing file with no change to the original filename's case. This is due to Windows filesystem being case-insensitive. The workaround is to delete the file before exporting again.
+3. **When running export command on Windows OS**, if the entered filename already exists in the `exports` directory in a dIfFeReNt CaSe, the app will present an error that a file with the given filename already exists. The workaround is to rename the file or delete it before exporting again. (e.g. Running `export abc.csv` followed by `export ABC.csv` will fail on the second command)
 
 --------------------------------------------------------------------------------------------------------------------
 
