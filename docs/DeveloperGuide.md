@@ -224,7 +224,7 @@ formatting.
 * `CsvAddressBookStorage` and `VcfAddressBookStorage` — Implementations of AddressBookStorage with methods tailored to the target filetypes
 * `CsvAdaptedPerson` and `VcfAdaptedPerson` — Adapted Person classes with datatypes suitable to be stored in the target filetype
 * `CsvSerializableAddressBook` and `VcfSerializableAddressBook` — Holds Adapted Persons for processing in implementations of AddressBookStorage
-* `VcfMapper` — Contains static methods to convert `VcfAdaptedPerson`s to Vcard objects
+* `VcfMapper` — Contains static methods to convert `VcfAdaptedPerson`s to vCard objects
 
 #### Sequence flow of Export to CSV feature
 <puml src="diagrams/ExportSequenceDiagram.puml" alt="ExportSequenceDiagram.puml" />
@@ -530,7 +530,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to find all person(s) containing the same names/phone numbers/roles/tags as the provided names/phone numbers/roles/tags.
-2.  Listify shows a list of person(s) user requested.
+2.  Listify shows a list of person(s) the user requested.
 
     Use case ends.
 
@@ -543,13 +543,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case ends.
 
 ---
-**Use case: Sort contacts alphabetically**
+**Use case: Sort contacts**
 
 **MSS**
 
 1.  User requests to list persons.
 2.  Listify shows a list of persons.
-3.  User requests to sort contacts based on persons name.
+3.  User requests to sort contacts.
 4.  Listify shows sorted list of persons.
 
     Use case ends.
@@ -559,42 +559,52 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. The list is empty.
 
   Use case ends.
+
+* 3a. The list contains contacts with same name.
+
+  * 3a1. Listify sorts the contacts by phone number.
+      
+    Use case resumes from step 4.
+
 ---
-**Use case: Export contacts to csv**
+**Use case: Export contacts to CSV**
 
 **MSS**
 
-1.	User requests to export contacts to a csv file.
-2.	Listify exports all contacts to a csv file.
-3.	Listify shows a success message with the saved file location.
-
-Use case ends.
+1.	User requests to export contacts to a CSV file.
+2.	Listify exports all contacts to a CSV file.
+3.	Listify shows a success message with the saved file location.<br>
+    Use case ends.
 
 **Extensions**
 
 * 1a. The provided filename is invalid
 
     * 1a1. Listify shows an error message.
+      
       Use case ends.
 
 * 1b. The export file creation failed
 
     * 1b1. Listify shows an error message.
+      
       Use case ends.
 
 * 1c. A file with the given filename given already exists
 
     * 1c1. Listify shows an error message.
-      Use case ends
+    
+      Use case ends.
+---
+**Use case: Export contacts to VCF**<br>
+Similar to Export contacts to CSV use case, except for the file type.
 
-Use case: Export contacts to vcf
-Similar to Export contacts to csv use case, except for the file type
-MSS
-1.	User requests to export contacts to a vcf file.
-2.	Listify exports all contacts to a vcf file.
-3.	Listify shows a success message with the saved file location.
+**MSS**
+1.	User requests to export contacts to a VCF file.
+2.	Listify exports all contacts to a VCF file.
+3.	Listify shows a success message with the saved file location.<br>
+    Use case ends.
 
-Use case ends.
 
 **Extensions**
 * 1a. The provided filename is invalid
@@ -612,7 +622,8 @@ Use case ends.
 * 1c. A file with the given filename given already exists
 
     * 1c1. Listify shows an error message.
-      Use case ends
+      
+      Use case ends.
 
 ---
 **Use case: Import contacts from CSV**
@@ -799,11 +810,11 @@ Use case ends.
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS.
 * **Contact** - An individual an organisation/party has interest in communicating with.
-* **Contact Details** - Adjectives that can describe a contact including but not limited to Contact Name, Phone Number, and Email
-* **CSV File** - (Comma Separated Values) a simple text file that stores data in a tabular format, where each line represents a row and values within a row are separated by commas
-* **VCF File** - (Vcard) a common file format used to store and exchange digital contact information across devices and platforms (iCloud, Google Contacts, etc.) 
+* **Contact Details** - Adjectives that can describe a contact including but not limited to Contact Name, Phone Number, and Email.
+* **CSV File** - (Comma-Separated Values) a simple text file that stores data in a tabular format, where each line represents a row and values within a row are separated by commas.
+* **VCF File** - (vCard or Virtual Contact File) a common file format used to store and exchange digital contact information across devices and platforms (iCloud, Google Contacts, etc.).
 * **Event Organisers** – Tech-savvy event organisers who are fast typists and deal with large amounts of contacts.
-* **Tag** - To associate a contact with a particular group
+* **Tag** - To associate a contact with a particular group.
 
 --------------------------------------------------------------------------------------------------------------------
 
