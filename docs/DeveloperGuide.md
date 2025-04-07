@@ -1018,7 +1018,7 @@ testers are expected to do more *exploratory* testing.
 
     1. Execute: `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Vendor`
         
-       Expected: Contact is added, success message shown, status bar timestamp updated. 
+       Expected: Contact is added, success message shown.
    
     2. Execute: `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 r/Software Engineer t/criminal`
    
@@ -1032,7 +1032,7 @@ testers are expected to do more *exploratory* testing.
    
     2. Execute: `add` (with missing fields)
    
-       Expected: Error message for missing required fields.
+       Expected: Error message shown.
 
 
 
@@ -1045,25 +1045,25 @@ testers are expected to do more *exploratory* testing.
 
     1. Execute: `edit 1 p/91234567 e/johndoe@example.com`
 
-       Expected: EExpected: First person’s phone and email are updated, success message shown.
+       Expected: First person’s phone and email are updated, success message shown.
    
     2. Execute: `edit 2 n/Betsy Crower t/`
    
-       Expected: Name is changed, tags are cleared.
+       Expected: Second person's name is changed, tags are cleared.
 
 2. Invalid Edits 
 
     1. Execute: `edit 0 p/1234567`
    
-       Expected: Error message about invalid index.
+       Expected: Error message shown.
 
     2. Execute: `edit 1`
        
-       Expected: Error message about missing fields to edit.
+       Expected: Error message stating at least one field to edit must be provided.
    
     3. Execute: `edit x n/Test`
    
-       Expected: Error message for invalid index format.
+       Expected: Error message shown.
 
 
 
@@ -1086,11 +1086,11 @@ testers are expected to do more *exploratory* testing.
 
     1. Execute: `find p/98765432`
    
-       Expected: Contacts with matching phone numbers are listed. 
+       Expected: Contact with matching phone number is listed. 
    
     2. Execute: `find p/98765432 98761234`
    
-       Expected: Error due to incorrect format.
+       Expected: Error message shown stating phone number provided is invalid.
 
     3. Execute: `find p/98765432 p/98761234`
    
@@ -1110,11 +1110,11 @@ testers are expected to do more *exploratory* testing.
 
     1. Execute: `find n/john p/98765432`
    
-       Expected: Error for mixed prefixes.
+       Expected: Error message shown.
 
 
 
-### Deleting multiple people
+### Deleting multiple people with the same tag
 **Prerequisites:**
 * Ensure multiple contacts have a common tag.
 
@@ -1123,13 +1123,13 @@ testers are expected to do more *exploratory* testing.
 
     1. Execute: `list`, then `deletewithtag colleagues`
    
-       Expected: All contacts with tag `colleagues` are deleted. Status message and timestamp updated.
+       Expected: All contacts with tag `colleagues` are deleted.
 
 2. Tag Not Found
 
     1. Execute: `deletewithtag nonexistenttag`
    
-       Expected: No contacts deleted, error or "no matching contacts" message shown.
+       Expected: No contacts deleted and "0 persons deleted!" message shown.
 
 3. Case Insensitivity
 
@@ -1155,3 +1155,6 @@ testers are expected to do more *exploratory* testing.
 
 6. More sorting choices for `sort` command: Currently, the `sort` command only allows sorting by `name` and `phone`. We plan to allow users to also sort by `tag`, `role` and `last contacted`.
 
+7. Allow multiple prefixes for `find` command: Currently, the `find` command only allows searching for contacts by one prefix. We plan to allow users to also search for contacts by multiple prefixes. Example: `find n/John e/john@gmail.com p/78989456`.
+
+8. Flexibility with exports: Allow users to export only selected contacts that are listed in the app. Example: `find t/friends` followed by `export` will only export contacts with the `friends` tag.
